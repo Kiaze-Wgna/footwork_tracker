@@ -183,8 +183,8 @@ class HomeScreen extends StatelessWidget {
         appBar: topBar(),
         //main content
         body:Container(
-          child:Text("Home",style:TextStyle(fontSize: 50)),
           alignment: Alignment.topCenter,
+          child:Text("Home",style:TextStyle(fontSize: 50))
         ),
         //bottom bar
         bottomNavigationBar:bottomBar(context),
@@ -291,8 +291,8 @@ class TipsScreen extends StatelessWidget {
         appBar: topBar(),
         //main content
         body:Container(
-          child:Text("Tips",style:TextStyle(fontSize: 50)),
           alignment: Alignment.topCenter,
+          child:Text("Tips",style:TextStyle(fontSize: 50)),
         ),
         //bottom bar
         bottomNavigationBar:bottomBar(context),
@@ -313,14 +313,14 @@ class PracticeGenerator extends StatefulWidget{
 }
 
 class _PracticeGenerator extends State<PracticeGenerator> {
-  List<String> PracticeList=[];
-  String CurrentPractice="Assets/Images/start.png";
+  List<String> practiceList=[];
+  String currentPractice="Assets/Images/start.png";
   Timer? timer;
   @override
   void initState() {
     super.initState();
     if (practicetype==1) { //6 corners
-      PracticeList=[
+      practiceList=[
       "Assets/Images/LeftFront.png",
       "Assets/Images/LeftCenter.png",
       "Assets/Images/LeftBack.png",
@@ -329,14 +329,14 @@ class _PracticeGenerator extends State<PracticeGenerator> {
       "Assets/Images/RightBack.png",
       ];
     } else if (practicetype==2){ //4 corners
-      PracticeList=[
+      practiceList=[
       "Assets/Images/LeftFront.png",
       "Assets/Images/LeftBack.png",
       "Assets/Images/RightFront.png",
       "Assets/Images/RightBack.png",
       ];
     } else if (practicetype==3){ //8 corners
-      PracticeList=[
+      practiceList=[
       "Assets/Images/LeftFront.png",
       "Assets/Images/LeftCenter.png",
       "Assets/Images/LeftBack.png",
@@ -347,14 +347,14 @@ class _PracticeGenerator extends State<PracticeGenerator> {
       "Assets/Images/FastRight.png"
       ];
     } else if (practicetype==4){ //smash defense
-      PracticeList=[
+      practiceList=[
       "Assets/Images/LeftFront.png",
       "Assets/Images/LeftCenter.png",
       "Assets/Images/RightFront.png",
       "Assets/Images/RightCenter.png"
       ];
     } else if (practicetype==5){ //Center2corners
-      PracticeList=[
+      practiceList=[
       "Assets/Images/LeftFront.png",
       "Assets/Images/LeftCenter.png",
       "Assets/Images/LeftBack.png",
@@ -371,12 +371,12 @@ class _PracticeGenerator extends State<PracticeGenerator> {
       timer?.cancel();
       practicecount=0;
       setState(() {
-        CurrentPractice="Assets/Images/start.png";
+        currentPractice="Assets/Images/start.png";
       });
       return;
     }
     setState(() {
-      CurrentPractice=PracticeList[Random().nextInt(PracticeList.length)];
+      currentPractice=practiceList[Random().nextInt(practiceList.length)];
       practicecount++;
     });
     timer=Timer(Duration(milliseconds:Random().nextInt(1500) + 1000),changepractice);
@@ -393,7 +393,7 @@ class _PracticeGenerator extends State<PracticeGenerator> {
       body: Center(
         child: GestureDetector (
           child: Image.asset(
-          CurrentPractice, // Replace with your image path
+          currentPractice, // Replace with your image path
           width: double.infinity,
           height: double.infinity,
           fit: BoxFit.contain, // Adjusts image to fit within screen
