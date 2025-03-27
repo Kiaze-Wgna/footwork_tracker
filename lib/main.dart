@@ -8,7 +8,7 @@ int practicetype=0;
 
 //Global Theme
 final globalTheme=ThemeData(
-  colorScheme: ColorScheme.fromSeed(seedColor: Color.fromARGB(255, 12, 84, 24)),
+  colorScheme: ColorScheme.fromSeed(seedColor: Color.fromARGB(255, 11, 140, 33)),
   useMaterial3: true,
 );
 
@@ -16,7 +16,7 @@ final globalTheme=ThemeData(
 //topBar
 PreferredSizeWidget topBar({String text="FootworkTracker"}){
   return AppBar(
-    backgroundColor: const Color.fromARGB(255, 12, 84, 24),
+    backgroundColor: const Color.fromARGB(255, 11, 140, 33),
     title: Text(text),
   );
 }
@@ -81,7 +81,7 @@ Widget bottomBar(BuildContext context){
 //sideMenu
 Widget sideMenu(BuildContext context){
   return Drawer(
-    backgroundColor: const Color.fromARGB(255, 12, 84, 24),
+    backgroundColor: const Color.fromARGB(255, 11, 140, 33),
     child:Column(
       mainAxisAlignment: MainAxisAlignment.start,
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -383,7 +383,9 @@ class _PracticeGenerator extends State<PracticeGenerator> {
   }
   @override
   void dispose() {
-    timer?.cancel(); // Cancel timer when screen is closed
+    practicestart=false;
+    timer?.cancel();
+    practicecount=0;
     super.dispose();
   }
   @override
