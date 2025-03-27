@@ -14,10 +14,12 @@ final globalTheme=ThemeData(
 
 //Global Bars&Menus
 //topBar
-final topBar = AppBar(
+PreferredSizeWidget topBar({String text="FootworkTracker"}){
+  return AppBar(
     backgroundColor: const Color.fromARGB(255, 12, 84, 24),
-    title: Text("FootworkTracker"),
+    title: Text(text),
   );
+}
 
 //bottomBar
 Widget bottomBar(BuildContext context){
@@ -178,7 +180,7 @@ class HomeScreen extends StatelessWidget {
       //main build thing
       home:Scaffold(
         //top bar
-        appBar: topBar,
+        appBar: topBar(),
         //main content
         body:Container(
           child:Text("Home",style:TextStyle(fontSize: 50)),
@@ -205,7 +207,7 @@ class PracticeScreen extends StatelessWidget {
       //main build thing
       home:Scaffold(
         //top bar
-        appBar: topBar,
+        appBar: topBar(),
         //main content
         body:ListView(
           padding: const EdgeInsets.all(20.0),
@@ -286,7 +288,7 @@ class TipsScreen extends StatelessWidget {
       //main build thing
       home:Scaffold(
         //top bar
-        appBar: topBar,
+        appBar: topBar(),
         //main content
         body:Container(
           child:Text("Tips",style:TextStyle(fontSize: 50)),
@@ -387,9 +389,7 @@ class _PracticeGenerator extends State<PracticeGenerator> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text("Practice Generator"),
-      ),
+      appBar: topBar(text: "Practice Generator"),
       body: Center(
         child: GestureDetector (
           child: Image.asset(
