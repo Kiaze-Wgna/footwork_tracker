@@ -82,13 +82,14 @@ Widget bottomBar(BuildContext context){
 //sideMenu
 Widget sideMenu(BuildContext context){
   return Container(
-    width: 200,
+    width: 250,
     child: Drawer(
-      backgroundColor: Color.fromARGB(150, 163, 236, 150),
+      backgroundColor: Color.fromARGB(255, 154, 224, 142),
       child:Column(
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
+          SizedBox(width: 5, height: 50),
           Flexible(
             child:GestureDetector(
               child:Image.asset("Assets/Images/Menu.png"),
