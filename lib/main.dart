@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import "dart:math";
+import 'package:flutter_svg/flutter_svg.dart';
 
 bool practicestart=false;
 int practicecount=0;
@@ -8,7 +9,7 @@ int practicetype=0;
 
 //Global Theme
 final globalTheme=ThemeData(
-  colorScheme: ColorScheme.fromSeed(seedColor: Color.fromARGB(255, 11, 140, 33)),
+  colorScheme: ColorScheme.fromSeed(seedColor: Color.fromARGB(255, 0, 0, 0)),
   useMaterial3: true,
 );
 
@@ -16,7 +17,7 @@ final globalTheme=ThemeData(
 //topBar
 PreferredSizeWidget topBar({String text="FootworkTracker"}){
   return AppBar(
-    backgroundColor: const Color.fromARGB(255, 11, 140, 33),
+    backgroundColor: Color.fromARGB(255, 92, 190, 74),
     title: Text(text),
   );
 }
@@ -80,87 +81,167 @@ Widget bottomBar(BuildContext context){
 
 //sideMenu
 Widget sideMenu(BuildContext context){
-  return Drawer(
-    backgroundColor: const Color.fromARGB(255, 11, 140, 33),
-    child:Column(
-      mainAxisAlignment: MainAxisAlignment.start,
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Flexible(
-          child:GestureDetector(
-            child:Image.asset("Assets/Images/Menu.png"),
-            onTap: () {
-              Navigator.pushAndRemoveUntil(
-                context,
-                PageRouteBuilder(
-                  pageBuilder: (context, animation1, animation2) => const HomeScreen(),
-                  transitionDuration: Duration.zero,
-                  reverseTransitionDuration: Duration.zero
-                ),
-              (route) => false
-              ); 
-            },
+  return Container(
+    width: 200,
+    child: Drawer(
+      backgroundColor: Color.fromARGB(150, 163, 236, 150),
+      child:Column(
+        mainAxisAlignment: MainAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Flexible(
+            child:GestureDetector(
+              child:Image.asset("Assets/Images/Menu.png"),
+              onTap: () {
+                Navigator.pushAndRemoveUntil(
+                  context,
+                  PageRouteBuilder(
+                    pageBuilder: (context, animation1, animation2) => const HomeScreen(),
+                    transitionDuration: Duration.zero,
+                    reverseTransitionDuration: Duration.zero
+                  ),
+                (route) => false
+                ); 
+              },
+            ),
           ),
-        ),
-        Flexible(
-          child:GestureDetector(
-            child:Image.asset("Assets/Images/Menu Home.png"),
-            onTap: () {
-              Navigator.pushAndRemoveUntil(
-                context,
-                PageRouteBuilder(
-                  pageBuilder: (context, animation1, animation2) => const HomeScreen(),
-                  transitionDuration: Duration.zero,
-                  reverseTransitionDuration: Duration.zero
-                ),
-              (route) => false
-              ); 
-            },
+          Flexible(
+            child:GestureDetector(
+              child:Image.asset("Assets/Images/Menu Home.png"),
+              onTap: () {
+                Navigator.pushAndRemoveUntil(
+                  context,
+                  PageRouteBuilder(
+                    pageBuilder: (context, animation1, animation2) => const HomeScreen(),
+                    transitionDuration: Duration.zero,
+                    reverseTransitionDuration: Duration.zero
+                  ),
+                (route) => false
+                ); 
+              },
+            ),
           ),
-        ),
-        Flexible(
-          child:GestureDetector(
-            child:Image.asset("Assets/Images/Menu Practice.png"),
-            onTap: () {
-              Navigator.pushAndRemoveUntil(
-                context,
-                PageRouteBuilder(
-                  pageBuilder: (context, animation1, animation2) => const PracticeScreen(),
-                  transitionDuration: Duration.zero,
-                  reverseTransitionDuration: Duration.zero
-                ),
-              (route) => false
-              );
-            },
+          //for the individual practices
+          Flexible(
+            child:GestureDetector(
+              child:Image.asset("Assets/Images/Menu SixCorners.png"),
+              onTap: () {
+                practicetype=1;
+                Navigator.pushAndRemoveUntil(
+                  context,
+                  PageRouteBuilder(
+                    pageBuilder: (context, animation1, animation2) => PracticeGenerator(),
+                    transitionDuration: Duration.zero,
+                    reverseTransitionDuration: Duration.zero
+                  ),
+                (route) => false
+                );
+              },
+            ),
           ),
-        ),
-        //footwork camera
-        Flexible(
-          child:GestureDetector(
-            child:Image.asset("Assets/Images/Menu Practice.png"),
-            onTap: () {
 
-            },
+          Flexible(
+            child:GestureDetector(
+              child:Image.asset("Assets/Images/Menu FourCorners.png"),
+              onTap: () {
+                practicetype=2;
+                Navigator.pushAndRemoveUntil(
+                  context,
+                  PageRouteBuilder(
+                    pageBuilder: (context, animation1, animation2) => PracticeGenerator(),
+                    transitionDuration: Duration.zero,
+                    reverseTransitionDuration: Duration.zero
+                  ),
+                (route) => false
+                );
+              },
+            ),
           ),
-        ),
-        Flexible(
-          child:GestureDetector(
-            child:Image.asset("Assets/Images/Menu Tips.png"),
-            onTap: () {
-              Navigator.pushAndRemoveUntil(
-                context,
-                PageRouteBuilder(
-                  pageBuilder: (context, animation1, animation2) => const TipsScreen(),
-                  transitionDuration: Duration.zero,
-                  reverseTransitionDuration: Duration.zero
-                ),
-              (route) => false
-              ); 
-            },
+          
+          Flexible(
+            child:GestureDetector(
+              child:Image.asset("Assets/Images/Menu EightCorners.png"),
+              onTap: () {
+                practicetype=3;
+                Navigator.pushAndRemoveUntil(
+                  context,
+                  PageRouteBuilder(
+                    pageBuilder: (context, animation1, animation2) => PracticeGenerator(),
+                    transitionDuration: Duration.zero,
+                    reverseTransitionDuration: Duration.zero
+                  ),
+                (route) => false
+                );
+              },
+            ),
           ),
-        ),
-      ]
+
+          Flexible(
+            child:GestureDetector(
+              child:Image.asset("Assets/Images/Menu SmashDefense.png"),
+              onTap: () {
+                practicetype=4;
+                Navigator.pushAndRemoveUntil(
+                  context,
+                  PageRouteBuilder(
+                    pageBuilder: (context, animation1, animation2) => PracticeGenerator(),
+                    transitionDuration: Duration.zero,
+                    reverseTransitionDuration: Duration.zero
+                  ),
+                (route) => false
+                );
+              },
+            ),
+          ),
+
+          Flexible(
+            child:GestureDetector(
+              child:Image.asset("Assets/Images/Menu CenterToCorners.png"),
+              onTap: () {
+                practicetype=5;
+                Navigator.pushAndRemoveUntil(
+                  context,
+                  PageRouteBuilder(
+                    pageBuilder: (context, animation1, animation2) => PracticeGenerator(),
+                    transitionDuration: Duration.zero,
+                    reverseTransitionDuration: Duration.zero
+                  ),
+                (route) => false
+                );
+              },
+            ),
+          ),
+
+          //footwork camera
+          Flexible(
+            child:GestureDetector(
+              child:Image.asset("Assets/Images/Menu Practice.png"),
+              onTap: () {
+
+              },
+            ),
+          ),
+
+          Flexible(
+            child:GestureDetector(
+              child:Image.asset("Assets/Images/Menu Tips.png"),
+              onTap: () {
+                Navigator.pushAndRemoveUntil(
+                  context,
+                  PageRouteBuilder(
+                    pageBuilder: (context, animation1, animation2) => const TipsScreen(),
+                    transitionDuration: Duration.zero,
+                    reverseTransitionDuration: Duration.zero
+                  ),
+                (route) => false
+                ); 
+              },
+            ),
+          ),
+        ]
+      )
     )
+    
   );
 }
 
@@ -309,59 +390,60 @@ class PracticeGenerator extends StatefulWidget{
   const PracticeGenerator({super.key});
 
   @override
+  // ignore: library_private_types_in_public_api
   _PracticeGenerator createState() => _PracticeGenerator();
 }
 
 class _PracticeGenerator extends State<PracticeGenerator> {
   List<String> practiceList=[];
-  String currentPractice="Assets/Images/start.png";
+  String currentPractice="Assets/Images/start.svg";
   Timer? timer;
   @override
   void initState() {
     super.initState();
     if (practicetype==1) { //6 corners
       practiceList=[
-      "Assets/Images/LeftFront.png",
-      "Assets/Images/LeftCenter.png",
-      "Assets/Images/LeftBack.png",
-      "Assets/Images/RightFront.png",
-      "Assets/Images/RightCenter.png",
-      "Assets/Images/RightBack.png",
+      "Assets/Images/LeftFront.svg",
+      "Assets/Images/LeftCenter.svg",
+      "Assets/Images/LeftBack.svg",
+      "Assets/Images/RightFront.svg",
+      "Assets/Images/RightCenter.svg",
+      "Assets/Images/RightBack.svg",
       ];
     } else if (practicetype==2){ //4 corners
       practiceList=[
-      "Assets/Images/LeftFront.png",
-      "Assets/Images/LeftBack.png",
-      "Assets/Images/RightFront.png",
-      "Assets/Images/RightBack.png",
+      "Assets/Images/LeftFront.svg",
+      "Assets/Images/LeftBack.svg",
+      "Assets/Images/RightFront.svg",
+      "Assets/Images/RightBack.svg",
       ];
     } else if (practicetype==3){ //8 corners
       practiceList=[
-      "Assets/Images/LeftFront.png",
-      "Assets/Images/LeftCenter.png",
-      "Assets/Images/LeftBack.png",
-      "Assets/Images/RightFront.png",
-      "Assets/Images/RightCenter.png",
-      "Assets/Images/RightBack.png",
-      "Assets/Images/FastLeft.png",
-      "Assets/Images/FastRight.png"
+      "Assets/Images/LeftFront.svg",
+      "Assets/Images/LeftCenter.svg",
+      "Assets/Images/LeftBack.svg",
+      "Assets/Images/RightFront.svg",
+      "Assets/Images/RightCenter.svg",
+      "Assets/Images/RightBack.svg",
+      "Assets/Images/FastLeft.svg",
+      "Assets/Images/FastRight.svg"
       ];
     } else if (practicetype==4){ //smash defense
       practiceList=[
-      "Assets/Images/LeftFront.png",
-      "Assets/Images/LeftCenter.png",
-      "Assets/Images/RightFront.png",
-      "Assets/Images/RightCenter.png"
+      "Assets/Images/LeftFront.svg",
+      "Assets/Images/LeftCenter.svg",
+      "Assets/Images/RightFront.svg",
+      "Assets/Images/RightCenter.svg"
       ];
     } else if (practicetype==5){ //Center2corners
       practiceList=[
-      "Assets/Images/LeftFront.png",
-      "Assets/Images/LeftCenter.png",
-      "Assets/Images/LeftBack.png",
-      "Assets/Images/RightFront.png",
-      "Assets/Images/RightCenter.png",
-      "Assets/Images/RightBack.png",
-      "Assets/Images/FrontCenter.png"
+      "Assets/Images/LeftFront.svg",
+      "Assets/Images/LeftCenter.svg",
+      "Assets/Images/LeftBack.svg",
+      "Assets/Images/RightFront.svg",
+      "Assets/Images/RightCenter.svg",
+      "Assets/Images/RightBack.svg",
+      "Assets/Images/FrontCenter.svg"
       ];
     }
   }
@@ -371,7 +453,7 @@ class _PracticeGenerator extends State<PracticeGenerator> {
       timer?.cancel();
       practicecount=0;
       setState(() {
-        currentPractice="Assets/Images/start.png";
+        currentPractice="Assets/Images/start.svg";
       });
       return;
     }
@@ -394,7 +476,7 @@ class _PracticeGenerator extends State<PracticeGenerator> {
       appBar: topBar(text: "Practice Generator"),
       body: Center(
         child: GestureDetector (
-          child: Image.asset(
+          child: SvgPicture.asset(
           currentPractice, // Replace with your image path
           width: double.infinity,
           height: double.infinity,
