@@ -7,6 +7,11 @@ bool practicestart=false;
 int practicecount=0;
 int practicetype=0;
 
+
+// other improvements: 
+// consider adding a way for the player to know when their time is about to be up
+// add an audio when changing: can't tell when it changes if it's the same arrow
+
 //Global Theme
 final globalTheme=ThemeData(
   colorScheme: ColorScheme.fromSeed(seedColor: Color.fromARGB(255, 0, 0, 0)),
@@ -473,7 +478,7 @@ class _PracticeGenerator extends State<PracticeGenerator> {
       currentPractice = practiceList[Random().nextInt(practiceList.length)];
       practicecount++;
     });
-    timer = Timer(Duration(milliseconds: Random().nextInt(1500) + 1000+rhythm), changePractice);
+    timer = Timer(Duration(milliseconds: Random().nextInt(300) + 1500+rhythm), changePractice); // subject to change
   }
 
 
@@ -495,12 +500,26 @@ class _PracticeGenerator extends State<PracticeGenerator> {
           if (showButton) //show only when starting
             Column(
               children: [
-                Text("Current Rhythm: $rhythm", style: TextStyle(fontSize: 20)),
+                if (rhythm==0) // times subject to change
+                  Text("Current Rhythm: $rhythm ms (Advanced)", style: TextStyle(fontSize: 20)),
+
+                if (rhythm==500) 
+                  Text("Current Rhythm: $rhythm ms (Intermediate)", style: TextStyle(fontSize: 20)),
+                
+                if (rhythm == 1000)
+                  Text("Current Rhythm: $rhythm ms (Beginner)", style: TextStyle(fontSize: 20)),
+                SizedBox(height: 20),
+                  ElevatedButton(
+                  onPressed: changeRhythm,
+                  child: Text("Change Rhythm"),
+                )
+                
+                /*Text("Current Rhythm: $rhythm ms", style: TextStyle(fontSize: 20)),
                 SizedBox(height: 20),
                 ElevatedButton(
                   onPressed: changeRhythm,
                   child: Text("Change Rhythm"),
-                ),
+                ),*/
               ],
             ),
           Expanded(
