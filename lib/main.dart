@@ -503,11 +503,6 @@ class _PracticeGenerator extends State<PracticeGenerator> {
                 ),
               ],
             ),
-          SizedBox(height: 20),
-          ElevatedButton(
-            onPressed: changeRhythm,
-            child: Text("Change Rhythm"),
-          ),
           Expanded(
             child: Center(
               child: GestureDetector(
