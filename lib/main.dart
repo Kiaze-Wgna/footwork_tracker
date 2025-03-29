@@ -492,10 +492,17 @@ class _PracticeGenerator extends State<PracticeGenerator> {
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Text(
-            "Select a rhythm: $rhythm",
-            style: TextStyle(fontSize: 20),
-          ),
+          if (showButton) //show only when starting
+            Column(
+              children: [
+                Text("Current Rhythm: $rhythm", style: TextStyle(fontSize: 20)),
+                SizedBox(height: 20),
+                ElevatedButton(
+                  onPressed: changeRhythm,
+                  child: Text("Change Rhythm"),
+                ),
+              ],
+            ),
           SizedBox(height: 20),
           ElevatedButton(
             onPressed: changeRhythm,
