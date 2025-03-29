@@ -399,6 +399,7 @@ class PracticeGenerator extends StatefulWidget{
 class _PracticeGenerator extends State<PracticeGenerator> {
   List<String> practiceList = [];
   int rhythm = 0; // Variable to change
+  bool showButton = true;//to show/hide the button
   String currentPractice = "Assets/Images/start.svg";
   Timer? timer;
 
@@ -464,6 +465,7 @@ class _PracticeGenerator extends State<PracticeGenerator> {
       practicecount = 0;
       setState(() {
         currentPractice = "Assets/Images/start.svg";
+        showButton = true;
       });
       return;
     }
@@ -510,7 +512,10 @@ class _PracticeGenerator extends State<PracticeGenerator> {
                 ),
                 onTap: () {
                   if (!practicestart) {
-                    practicestart = true;
+                    setState(() {
+                      practicestart = true;
+                      showButton = false; // Hide button when starting practice
+                    });
                     timer?.cancel();
                     practicecount = 0;
                     changePractice();
