@@ -395,104 +395,132 @@ class PracticeGenerator extends StatefulWidget{
   _PracticeGenerator createState() => _PracticeGenerator();
 }
 
+
 class _PracticeGenerator extends State<PracticeGenerator> {
-  List<String> practiceList=[];
-  String currentPractice="Assets/Images/start.svg";
+  List<String> practiceList = [];
+  int rhythm = 0; // Variable to change
+  String currentPractice = "Assets/Images/start.svg";
   Timer? timer;
+
   @override
   void initState() {
     super.initState();
-    if (practicetype==1) { //6 corners
-      practiceList=[
-      "Assets/Images/LeftFront.svg",
-      "Assets/Images/LeftCenter.svg",
-      "Assets/Images/LeftBack.svg",
-      "Assets/Images/RightFront.svg",
-      "Assets/Images/RightCenter.svg",
-      "Assets/Images/RightBack.svg",
+    if (practicetype == 1) { // 6 corners
+      practiceList = [
+        "Assets/Images/LeftFront.svg",
+        "Assets/Images/LeftCenter.svg",
+        "Assets/Images/LeftBack.svg",
+        "Assets/Images/RightFront.svg",
+        "Assets/Images/RightCenter.svg",
+        "Assets/Images/RightBack.svg",
       ];
-    } else if (practicetype==2){ //4 corners
-      practiceList=[
-      "Assets/Images/LeftFront.svg",
-      "Assets/Images/LeftBack.svg",
-      "Assets/Images/RightFront.svg",
-      "Assets/Images/RightBack.svg",
+    } else if (practicetype == 2) { // 4 corners
+      practiceList = [
+        "Assets/Images/LeftFront.svg",
+        "Assets/Images/LeftBack.svg",
+        "Assets/Images/RightFront.svg",
+        "Assets/Images/RightBack.svg",
       ];
-    } else if (practicetype==3){ //8 corners
-      practiceList=[
-      "Assets/Images/LeftFront.svg",
-      "Assets/Images/LeftCenter.svg",
-      "Assets/Images/LeftBack.svg",
-      "Assets/Images/RightFront.svg",
-      "Assets/Images/RightCenter.svg",
-      "Assets/Images/RightBack.svg",
-      "Assets/Images/FastLeft.svg",
-      "Assets/Images/FastRight.svg"
+    } else if (practicetype == 3) { // 8 corners
+      practiceList = [
+        "Assets/Images/LeftFront.svg",
+        "Assets/Images/LeftCenter.svg",
+        "Assets/Images/LeftBack.svg",
+        "Assets/Images/RightFront.svg",
+        "Assets/Images/RightCenter.svg",
+        "Assets/Images/RightBack.svg",
+        "Assets/Images/FastLeft.svg",
+        "Assets/Images/FastRight.svg"
       ];
-    } else if (practicetype==4){ //smash defense
-      practiceList=[
-      "Assets/Images/LeftFront.svg",
-      "Assets/Images/LeftCenter.svg",
-      "Assets/Images/RightFront.svg",
-      "Assets/Images/RightCenter.svg"
+    } else if (practicetype == 4) { // Smash defense
+      practiceList = [
+        "Assets/Images/LeftFront.svg",
+        "Assets/Images/LeftCenter.svg",
+        "Assets/Images/RightFront.svg",
+        "Assets/Images/RightCenter.svg"
       ];
-    } else if (practicetype==5){ //Center2corners
-      practiceList=[
-      "Assets/Images/LeftFront.svg",
-      "Assets/Images/LeftCenter.svg",
-      "Assets/Images/LeftBack.svg",
-      "Assets/Images/RightFront.svg",
-      "Assets/Images/RightCenter.svg",
-      "Assets/Images/RightBack.svg",
-      "Assets/Images/FrontCenter.svg"
+    } else if (practicetype == 5) { // Center to corners
+      practiceList = [
+        "Assets/Images/LeftFront.svg",
+        "Assets/Images/LeftCenter.svg",
+        "Assets/Images/LeftBack.svg",
+        "Assets/Images/RightFront.svg",
+        "Assets/Images/RightCenter.svg",
+        "Assets/Images/RightBack.svg",
+        "Assets/Images/FrontCenter.svg"
       ];
     }
   }
-  void changepractice(){
-    if (practicecount>=20){
-      practicestart=false;
+    void changeRhythm() {
+    setState(() {
+      rhythm = (rhythm + 500) % 1500; // Cycle through values (0, 500, 1000)
+    });
+  }
+
+  void changePractice() {
+    if (practicecount >= 20) {
+      practicestart = false;
       timer?.cancel();
-      practicecount=0;
+      practicecount = 0;
       setState(() {
-        currentPractice="Assets/Images/start.svg";
+        currentPractice = "Assets/Images/start.svg";
       });
       return;
     }
     setState(() {
-      currentPractice=practiceList[Random().nextInt(practiceList.length)];
+      currentPractice = practiceList[Random().nextInt(practiceList.length)];
       practicecount++;
     });
-    timer=Timer(Duration(milliseconds:Random().nextInt(1500) + 1000),changepractice);
+    timer = Timer(Duration(milliseconds: Random().nextInt(1500) + 1000+rhythm), changePractice);
   }
+
+
   @override
   void dispose() {
-    practicestart=false;
+    practicestart = false;
     timer?.cancel();
-    practicecount=0;
+    practicecount = 0;
     super.dispose();
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: topBar(text: "Practice Generator"),
-      body: Center(
-        child: GestureDetector (
-          child: SvgPicture.asset(
-          currentPractice, // Replace with your image path
-          width: double.infinity,
-          height: double.infinity,
-          fit: BoxFit.contain, // Adjusts image to fit within screen
+      appBar: AppBar(title: Text("Practice Generator")),
+      body: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Text(
+            "Select a rhythm: $rhythm",
+            style: TextStyle(fontSize: 20),
           ),
-          onTap: () {
-            if (!practicestart){
-              practicestart=true;
-              timer?.cancel();
-              practicecount=0;
-              changepractice();
-            }
-          },
-        )
-      )
+          SizedBox(height: 20),
+          ElevatedButton(
+            onPressed: changeRhythm,
+            child: Text("Change Rhythm"),
+          ),
+          Expanded(
+            child: Center(
+              child: GestureDetector(
+                child: SvgPicture.asset(
+                  currentPractice,
+                  width: double.infinity,
+                  height: double.infinity,
+                  fit: BoxFit.contain,
+                ),
+                onTap: () {
+                  if (!practicestart) {
+                    practicestart = true;
+                    timer?.cancel();
+                    practicecount = 0;
+                    changePractice();
+                  }
+                },
+              ),
+            ),
+          ),
+        ],
+      ),
     );
   }
 }
