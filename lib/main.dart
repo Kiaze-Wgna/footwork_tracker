@@ -86,7 +86,7 @@ Widget bottomBar(BuildContext context){
 
 //sideMenu
 Widget sideMenu(BuildContext context){
-  return Container(
+  return SizedBox(
     width: 250,
     child: Drawer(
       backgroundColor: Color.fromARGB(255, 154, 224, 142),
