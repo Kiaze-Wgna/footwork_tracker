@@ -1,5 +1,8 @@
+import 'dart:io';
 import 'dart:async';
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
+import 'python_service.dart';
 import "dart:math";
 import 'package:flutter_svg/flutter_svg.dart';
 
@@ -600,8 +603,27 @@ class _PracticeGenerator extends State<PracticeGenerator> {
 }
 
 //CourtCamScreen Code
-class CourtCamScreen extends StatelessWidget {
+class CourtCamScreen extends StatefulWidget {
   const CourtCamScreen({super.key});
+
+  @override
+  // ignore: library_private_types_in_public_api
+  _CourtCamScreen createState() => _CourtCamScreen();
+}
+
+class _CourtCamScreen extends State<CourtCamScreen>{
+  File? image;
+  String? processedPath;
+  final pythonService = PythonService();
+
+  Future<void> pickImage() async {
+    final picked = await ImagePicker().pickImage(source: ImageSource.camera);
+    if (picked != null) {
+      setState(() => image = File(picked.path));
+      final resultPath = await pythonService.processImage(picked.path);
+      setState(() => processedPath = resultPath);
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -609,9 +631,12 @@ class CourtCamScreen extends StatelessWidget {
         //top bar
         appBar: AppBar(backgroundColor: Color.fromARGB(255, 92, 190, 74),title: Text("Practice Generator")),
         //main content
-        body:Container(
-          alignment: Alignment.topCenter,
-          child:Text("CourtCamScreen",style:TextStyle(fontSize: 50)),
+        body: Column(
+          children: [
+            ElevatedButton(onPressed: pickImage, child: Text("Take Photo")),
+            if (image != null) Image.file(image!),
+            if (processedPath != null) Image.file(File(processedPath!)),
+          ],
         ),
     );
   }

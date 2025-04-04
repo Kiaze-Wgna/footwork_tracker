@@ -1,3 +1,16 @@
+buildscript {
+    repositories {
+        google()
+        jcenter()
+        mavenCentral()
+        maven { url = uri("https://jcenter.bintray.com") }
+    }
+    dependencies {
+        classpath("com.android.tools.build:gradle:7.4.2")
+        classpath("com.chaquo.python:gradle:16.0.0")
+    }
+}
+
 allprojects {
     repositories {
         google()
