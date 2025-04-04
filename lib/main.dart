@@ -190,9 +190,77 @@ class HomeScreen extends StatelessWidget {
         //top bar
         appBar: topBar(),
         //main content
-        body:Container(
-          alignment: Alignment.topCenter,
-          child:Text("Home",style:TextStyle(fontSize: 50))
+        body: SingleChildScrollView(  // Makes the entire body scrollable
+          child: Padding(
+            padding: const EdgeInsets.all(16.0),  // Add padding around the content
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                // Welcome Text
+                Text(
+                  "Welcome to FootworkTracker!",
+                  style: TextStyle(
+                    fontSize: 32,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.green,
+                  ),
+                ),
+                SizedBox(height: 20),  // Add spacing between sections
+                
+                // Introduction Text
+                Text(
+                  "You can try the practices in the Practice page, "
+                  "check out our brand new beta CourtCam for court detection, "
+                  "and learn more with our Badminton tips section.",
+                  style: TextStyle(
+                    fontSize: 18,
+                    color: Colors.black87,
+                  ),
+                ),
+                SizedBox(height: 40),
+                
+                // Button Section (optional)
+                ElevatedButton(
+                  onPressed: () {
+                    // Navigate to Practice page
+                    noBackNavigator(context, PracticeScreen());
+                  },
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Colors.green, // Button color
+                    padding: EdgeInsets.symmetric(horizontal: 30, vertical: 15),
+                    textStyle: TextStyle(fontSize: 20),
+                  ),
+                  child: Text('Try Practices'),
+                ),
+                SizedBox(height: 20),
+                ElevatedButton(
+                  onPressed: () {
+                    // Navigate to CourtCam page (replace with actual page)
+                    yesBackNavigator(context, CourtCamScreen());
+                  },
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Colors.blue, // Button color
+                    padding: EdgeInsets.symmetric(horizontal: 30, vertical: 15),
+                    textStyle: TextStyle(fontSize: 20),
+                  ),
+                  child: Text('Try CourtCam (Beta)'),
+                ),
+                SizedBox(height: 20),
+                ElevatedButton(
+                  onPressed: () {
+                    // Navigate to Tips page
+                    noBackNavigator(context, TipsScreen());
+                  },
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Colors.orange, // Button color
+                    padding: EdgeInsets.symmetric(horizontal: 30, vertical: 15),
+                    textStyle: TextStyle(fontSize: 20),
+                  ),
+                  child: Text('View Tips'),
+                ),
+              ],
+            ),
+          ),
         ),
         //bottom bar
         bottomNavigationBar:bottomBar(context),
