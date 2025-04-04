@@ -12,6 +12,28 @@ int practicetype=0;
 // consider adding a way for the player to know when their time is about to be up
 // add an audio when changing: can't tell when it changes if it's the same arrow
 
+//Global Useful Functions:
+//Global noBackNavigator
+void noBackNavigator(BuildContext context, Widget screen) {
+  Navigator.pushAndRemoveUntil(
+    context,
+    PageRouteBuilder(
+      pageBuilder: (context, animation1, animation2) => screen,
+      transitionDuration: Duration.zero,
+      reverseTransitionDuration: Duration.zero,
+    ),
+    (route) => false,
+  );
+}
+
+//Global yesBackNavigator
+void yesBackNavigator(BuildContext context, Widget screen) {
+  Navigator.push(
+    context,
+    MaterialPageRoute(builder: (context) => screen),
+  );
+}
+
 //Global Theme
 final globalTheme=ThemeData(
   colorScheme: ColorScheme.fromSeed(seedColor: Color.fromARGB(255, 0, 0, 0)),
@@ -36,15 +58,7 @@ Widget bottomBar(BuildContext context){
         child:GestureDetector(
           child:Image.asset("Assets/Images/Button Home.png"),
           onTap: () {
-            Navigator.pushAndRemoveUntil(
-              context,
-              PageRouteBuilder(
-                pageBuilder: (context, animation1, animation2) => const HomeScreen(),
-                transitionDuration: Duration.zero,
-                reverseTransitionDuration: Duration.zero
-              ),
-            (route) => false
-            ); 
+            noBackNavigator(context, const HomeScreen());
           },
         ),
       ),
@@ -52,15 +66,7 @@ Widget bottomBar(BuildContext context){
         child:GestureDetector(
           child:Image.asset("Assets/Images/Button Practice.png"),
           onTap: () {
-            Navigator.pushAndRemoveUntil(
-              context,
-              PageRouteBuilder(
-                pageBuilder: (context, animation1, animation2) => const PracticeScreen(),
-                transitionDuration: Duration.zero,
-                reverseTransitionDuration: Duration.zero
-              ),
-            (route) => false
-            ); 
+            noBackNavigator(context, const PracticeScreen());
           },
         ),
       ),
@@ -68,15 +74,7 @@ Widget bottomBar(BuildContext context){
         child:GestureDetector(
           child:Image.asset("Assets/Images/Button Tips.png"),
           onTap: () {
-            Navigator.pushAndRemoveUntil(
-              context,
-              PageRouteBuilder(
-                pageBuilder: (context, animation1, animation2) => const TipsScreen(),
-                transitionDuration: Duration.zero,
-                reverseTransitionDuration: Duration.zero
-              ),
-            (route) => false
-            ); 
+            noBackNavigator(context, const TipsScreen()); 
           },
         ),
       ),
@@ -84,166 +82,89 @@ Widget bottomBar(BuildContext context){
   );
 }
 
+final double dividerThickness = 1.0;
+final Color dividerColor = Colors.black;
+
 //sideMenu
 Widget sideMenu(BuildContext context){
   return SizedBox(
     width: 250,
     child: Drawer(
-      backgroundColor: Color.fromARGB(255, 154, 224, 142),
-      child:Column(
-        mainAxisAlignment: MainAxisAlignment.start,
-        crossAxisAlignment: CrossAxisAlignment.start,
+      backgroundColor: Color.fromARGB(255, 92, 190, 74),
+      child:ListView(
+        padding: EdgeInsets.zero,
         children: [
           SizedBox(width: 5, height: 50),
-          Flexible(
-            child:GestureDetector(
-              child:Image.asset("Assets/Images/Menu.png"),
-              onTap: () {
-                Navigator.pushAndRemoveUntil(
-                  context,
-                  PageRouteBuilder(
-                    pageBuilder: (context, animation1, animation2) => const HomeScreen(),
-                    transitionDuration: Duration.zero,
-                    reverseTransitionDuration: Duration.zero
-                  ),
-                (route) => false
-                ); 
-              },
-            ),
+          GestureDetector(
+            child:Image.asset("Assets/Images/Menu.png"),
+            onTap: () {
+              noBackNavigator(context, const HomeScreen());
+            },
           ),
-          Flexible(
-            child:GestureDetector(
-              child:Image.asset("Assets/Images/Menu Home.png"),
-              onTap: () {
-                Navigator.pushAndRemoveUntil(
-                  context,
-                  PageRouteBuilder(
-                    pageBuilder: (context, animation1, animation2) => const HomeScreen(),
-                    transitionDuration: Duration.zero,
-                    reverseTransitionDuration: Duration.zero
-                  ),
-                (route) => false
-                ); 
-              },
-            ),
+          Container(height: dividerThickness,color: dividerColor),
+          GestureDetector(
+            child:Image.asset("Assets/Images/Menu Home.png"),
+            onTap: () {
+              noBackNavigator(context, const HomeScreen());
+            },
           ),
+          Container(height: dividerThickness,color: dividerColor),
+          //CourtCam (Beta)
+          GestureDetector(
+            child:Image.asset("Assets/Images/Menu CourtCam.png"),
+            onTap: () {
+              yesBackNavigator(context, const CourtCamScreen());
+            },
+          ),
+          Container(height: dividerThickness,color: dividerColor),
           //for the individual practices
-          Flexible(
-            child:GestureDetector(
-              child:Image.asset("Assets/Images/Menu SixCorners.png"),
-              onTap: () {
-                practicetype=1;
-                Navigator.pushAndRemoveUntil(
-                  context,
-                  PageRouteBuilder(
-                    pageBuilder: (context, animation1, animation2) => PracticeGenerator(),
-                    transitionDuration: Duration.zero,
-                    reverseTransitionDuration: Duration.zero
-                  ),
-                (route) => false
-                );
-              },
-            ),
+          GestureDetector(
+            child:Image.asset("Assets/Images/Menu SixCorners.png"),
+            onTap: () {
+              practicetype=1;
+              yesBackNavigator(context, const PracticeGenerator());
+            },
           ),
-
-          Flexible(
-            child:GestureDetector(
-              child:Image.asset("Assets/Images/Menu FourCorners.png"),
-              onTap: () {
-                practicetype=2;
-                Navigator.pushAndRemoveUntil(
-                  context,
-                  PageRouteBuilder(
-                    pageBuilder: (context, animation1, animation2) => PracticeGenerator(),
-                    transitionDuration: Duration.zero,
-                    reverseTransitionDuration: Duration.zero
-                  ),
-                (route) => false
-                );
-              },
-            ),
+          Container(height: dividerThickness,color: dividerColor),
+          GestureDetector(
+            child:Image.asset("Assets/Images/Menu FourCorners.png"),
+            onTap: () {
+              practicetype=2;
+              yesBackNavigator(context, const PracticeGenerator());
+            },
           ),
-          
-          Flexible(
-            child:GestureDetector(
-              child:Image.asset("Assets/Images/Menu EightCorners.png"),
-              onTap: () {
-                practicetype=3;
-                Navigator.pushAndRemoveUntil(
-                  context,
-                  PageRouteBuilder(
-                    pageBuilder: (context, animation1, animation2) => PracticeGenerator(),
-                    transitionDuration: Duration.zero,
-                    reverseTransitionDuration: Duration.zero
-                  ),
-                (route) => false
-                );
-              },
-            ),
+          Container(height: dividerThickness,color: dividerColor),
+          GestureDetector(
+            child:Image.asset("Assets/Images/Menu EightCorners.png"),
+            onTap: () {
+              practicetype=3;
+              yesBackNavigator(context, const PracticeGenerator());
+            },
           ),
-
-          Flexible(
-            child:GestureDetector(
-              child:Image.asset("Assets/Images/Menu SmashDefense.png"),
-              onTap: () {
-                practicetype=4;
-                Navigator.pushAndRemoveUntil(
-                  context,
-                  PageRouteBuilder(
-                    pageBuilder: (context, animation1, animation2) => PracticeGenerator(),
-                    transitionDuration: Duration.zero,
-                    reverseTransitionDuration: Duration.zero
-                  ),
-                (route) => false
-                );
-              },
-            ),
+          Container(height: dividerThickness,color: dividerColor),
+          GestureDetector(
+            child:Image.asset("Assets/Images/Menu SmashDefense.png"),
+            onTap: () {
+              practicetype=4;
+              yesBackNavigator(context, const PracticeGenerator());
+            },
           ),
-
-          Flexible(
-            child:GestureDetector(
-              child:Image.asset("Assets/Images/Menu CenterToCorners.png"),
-              onTap: () {
-                practicetype=5;
-                Navigator.pushAndRemoveUntil(
-                  context,
-                  PageRouteBuilder(
-                    pageBuilder: (context, animation1, animation2) => PracticeGenerator(),
-                    transitionDuration: Duration.zero,
-                    reverseTransitionDuration: Duration.zero
-                  ),
-                (route) => false
-                );
-              },
-            ),
+          Container(height: dividerThickness,color: dividerColor),
+          GestureDetector(
+            child:Image.asset("Assets/Images/Menu CenterToCorners.png"),
+            onTap: () {
+              practicetype=5;
+              yesBackNavigator(context, const PracticeGenerator());
+            },
           ),
-
-          //footwork camera
-          Flexible(
-            child:GestureDetector(
-              child:Image.asset("Assets/Images/Menu Practice.png"),
-              onTap: () {
-
-              },
-            ),
+          Container(height: dividerThickness,color: dividerColor),
+          GestureDetector(
+            child:Image.asset("Assets/Images/Menu Tips.png"),
+            onTap: () {
+              noBackNavigator(context, const TipsScreen());
+            },
           ),
-
-          Flexible(
-            child:GestureDetector(
-              child:Image.asset("Assets/Images/Menu Tips.png"),
-              onTap: () {
-                Navigator.pushAndRemoveUntil(
-                  context,
-                  PageRouteBuilder(
-                    pageBuilder: (context, animation1, animation2) => const TipsScreen(),
-                    transitionDuration: Duration.zero,
-                    reverseTransitionDuration: Duration.zero
-                  ),
-                (route) => false
-                ); 
-              },
-            ),
-          ),
+          Container(height: dividerThickness,color: dividerColor),
         ]
       )
     )
@@ -297,59 +218,50 @@ class PracticeScreen extends StatelessWidget {
         appBar: topBar(),
         //main content
         body:ListView(
-          padding: const EdgeInsets.all(20.0),
+          padding: EdgeInsets.zero,
           children: [
             Center(
               child:Text("Practice",style:TextStyle(fontSize: 50))//align to center
             ),const SizedBox(height: 20),
             GestureDetector(
+              child:Image.asset("Assets/Images/CourtCam.png"),
+              onTap: () {
+                yesBackNavigator(context, const CourtCamScreen());
+              },
+            ),const SizedBox(height: 20),
+            GestureDetector(
               child:Image.asset("Assets/Images/SixCornersPractice.png"),
               onTap: () {
                 practicetype=1;
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => const PracticeGenerator()),
-                );
+                yesBackNavigator(context, const PracticeGenerator());
               },
             ),const SizedBox(height: 20),
             GestureDetector(
               child:Image.asset("Assets/Images/FourCornersPractice.png"),
               onTap: () {
                 practicetype=2;
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => const PracticeGenerator()),
-                );
+                yesBackNavigator(context, const PracticeGenerator());
               },
             ),const SizedBox(height: 20),
             GestureDetector(
               child:Image.asset("Assets/Images/EightCornersPractice.png"),
               onTap: () {
                 practicetype=3;
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => const PracticeGenerator()),
-                );
+                yesBackNavigator(context, const PracticeGenerator());
               },
             ),const SizedBox(height: 20),
             GestureDetector(
               child:Image.asset("Assets/Images/SmashDefense.png"),
               onTap: () {
                 practicetype=4;
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => const PracticeGenerator()),
-                );
+                yesBackNavigator(context, const PracticeGenerator());
               },
             ),const SizedBox(height: 20),
             GestureDetector(
               child:Image.asset("Assets/Images/CentreToCorners.png"),
               onTap: () {
                 practicetype=5;
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => const PracticeGenerator()),
-                );
+                yesBackNavigator(context, const PracticeGenerator());
               },
             ),const SizedBox(height: 20),
           ]
@@ -513,13 +425,6 @@ class _PracticeGenerator extends State<PracticeGenerator> {
                   onPressed: changeRhythm,
                   child: Text("Change Rhythm"),
                 )
-                
-                /*Text("Current Rhythm: $rhythm ms", style: TextStyle(fontSize: 20)),
-                SizedBox(height: 20),
-                ElevatedButton(
-                  onPressed: changeRhythm,
-                  child: Text("Change Rhythm"),
-                ),*/
               ],
             ),
           Expanded(
@@ -547,6 +452,24 @@ class _PracticeGenerator extends State<PracticeGenerator> {
           ),
         ],
       ),
+    );
+  }
+}
+
+//TipsScreen Code
+class CourtCamScreen extends StatelessWidget {
+  const CourtCamScreen({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+        //top bar
+        appBar: AppBar(title: Text("Practice Generator")),
+        //main content
+        body:Container(
+          alignment: Alignment.topCenter,
+          child:Text("CourtCamScreen",style:TextStyle(fontSize: 50)),
+        ),
     );
   }
 }
