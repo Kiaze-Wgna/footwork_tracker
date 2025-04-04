@@ -547,7 +547,6 @@ class _PracticeGenerator extends State<PracticeGenerator> {
     practicestart = false;
     timer?.cancel();
     practicecount = 0;
-    player.dispose(); 
     super.dispose();
   }
 
