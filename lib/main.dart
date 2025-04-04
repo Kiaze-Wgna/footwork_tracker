@@ -2,12 +2,13 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import "dart:math";
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:just_audio/just_audio.dart';
 
 bool practicestart=false;
 int practicecount=0;
 int practicetype=0;
 
-
+late AudioPlayer player;
 // other improvements: 
 // consider adding a way for the player to know when their time is about to be up
 // add an audio when changing: can't tell when it changes if it's the same arrow
@@ -172,7 +173,10 @@ Widget sideMenu(BuildContext context){
   );
 }
 
-void main() {
+void main() async{
+  WidgetsFlutterBinding.ensureInitialized();
+  player = AudioPlayer();
+  await player.setAudioSource(AudioSource.asset('Assets/Images/beep.mp3'));
   runApp(MaterialApp(home: HomeScreen(),));
 }
 
@@ -512,7 +516,7 @@ class _PracticeGenerator extends State<PracticeGenerator> {
       ];
     }
   }
-    void changeRhythm() {
+  void changeRhythm() {
     setState(() {
       rhythm = (rhythm + 500) % 1500; // Cycle through values (0, 500, 1000)
     });
@@ -529,6 +533,8 @@ class _PracticeGenerator extends State<PracticeGenerator> {
       });
       return;
     }
+    player.seek(Duration.zero);
+    player.play();   
     setState(() {
       currentPractice = practiceList[Random().nextInt(practiceList.length)];
       practicecount++;
@@ -536,12 +542,12 @@ class _PracticeGenerator extends State<PracticeGenerator> {
     timer = Timer(Duration(milliseconds: Random().nextInt(300) + 1500+rhythm), changePractice); // subject to change
   }
 
-
   @override
   void dispose() {
     practicestart = false;
     timer?.cancel();
     practicecount = 0;
+    player.dispose(); 
     super.dispose();
   }
 
@@ -607,11 +613,33 @@ class CourtCamScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
         //top bar
-        appBar: AppBar(backgroundColor: Color.fromARGB(255, 92, 190, 74),title: Text("Practice Generator")),
+        appBar: AppBar(backgroundColor: Color.fromARGB(255, 92, 190, 74),title: Text("Court Camera")),
         //main content
         body:Container(
           alignment: Alignment.topCenter,
-          child:Text("CourtCamScreen",style:TextStyle(fontSize: 50)),
+          padding: EdgeInsets.all(20),  // Added padding for spacing
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Text(
+              "Court Camera",
+              style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold), // Adjusted font size
+            ),
+            SizedBox(height: 20), // Space between title and other texts
+            Text(
+              "This feature is currently only available for beta testers.",
+              style: TextStyle(fontSize: 18, color: Colors.grey),
+              textAlign: TextAlign.center,
+            ),
+            SizedBox(height: 10), // Space between sentences
+            Text(
+              "You are not currently a beta tester.",
+              style: TextStyle(fontSize: 18, color: Colors.grey),
+              textAlign: TextAlign.center,
+            ),
+          ],
+        ),
         ),
     );
   }
