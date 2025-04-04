@@ -1,6 +1,6 @@
-# footwork_tracker
+# Footwork Tracker
 
-A new Flutter project.
+A Badminton Training app, made in Flutter
 
 ## Getting Started
 
