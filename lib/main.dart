@@ -228,10 +228,9 @@ class HomeScreen extends StatelessWidget {
                   },
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Colors.green, // Button color
-                    padding: EdgeInsets.symmetric(horizontal: 30, vertical: 15),
-                    textStyle: TextStyle(fontSize: 20,color: Colors.black),
+                    padding: EdgeInsets.symmetric(horizontal: 30, vertical: 15)
                   ),
-                  child: Text('Try Practices'),
+                  child: Text('Try Practices',style: TextStyle(fontSize: 20,color: Colors.black)),
                 ),
                 SizedBox(height: 20),
                 ElevatedButton(
@@ -241,10 +240,9 @@ class HomeScreen extends StatelessWidget {
                   },
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Colors.blue, // Button color
-                    padding: EdgeInsets.symmetric(horizontal: 30, vertical: 15),
-                    textStyle: TextStyle(fontSize: 20,color: Colors.black),
+                    padding: EdgeInsets.symmetric(horizontal: 30, vertical: 15)
                   ),
-                  child: Text('Try CourtCam (Beta)'),
+                  child: Text('Try CourtCam (Beta)',style: TextStyle(fontSize: 20,color: Colors.black)),
                 ),
                 SizedBox(height: 20),
                 ElevatedButton(
@@ -255,9 +253,8 @@ class HomeScreen extends StatelessWidget {
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Colors.orange, // Button color
                     padding: EdgeInsets.symmetric(horizontal: 30, vertical: 15),
-                    textStyle: TextStyle(fontSize: 20,color: Colors.black),
                   ),
-                  child: Text('View Tips'),
+                  child: Text('View Tips',style: TextStyle(fontSize: 20,color: Colors.black)),
                 ),
               ],
             ),
