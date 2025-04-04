@@ -9,9 +9,6 @@ int practicecount=0;
 int practicetype=0;
 
 late AudioPlayer player;
-// other improvements: 
-// consider adding a way for the player to know when their time is about to be up
-// add an audio when changing: can't tell when it changes if it's the same arrow
 
 //Global Useful Functions:
 //Global noBackNavigator
@@ -218,7 +215,7 @@ class HomeScreen extends StatelessWidget {
                   "and learn more with our Badminton tips section.",
                   style: TextStyle(
                     fontSize: 18,
-                    color: Colors.black87,
+                    color: Colors.black,
                   ),
                 ),
                 SizedBox(height: 40),
@@ -232,7 +229,7 @@ class HomeScreen extends StatelessWidget {
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Colors.green, // Button color
                     padding: EdgeInsets.symmetric(horizontal: 30, vertical: 15),
-                    textStyle: TextStyle(fontSize: 20),
+                    textStyle: TextStyle(fontSize: 20,color: Colors.black),
                   ),
                   child: Text('Try Practices'),
                 ),
@@ -245,7 +242,7 @@ class HomeScreen extends StatelessWidget {
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Colors.blue, // Button color
                     padding: EdgeInsets.symmetric(horizontal: 30, vertical: 15),
-                    textStyle: TextStyle(fontSize: 20),
+                    textStyle: TextStyle(fontSize: 20,color: Colors.black),
                   ),
                   child: Text('Try CourtCam (Beta)'),
                 ),
@@ -258,7 +255,7 @@ class HomeScreen extends StatelessWidget {
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Colors.orange, // Button color
                     padding: EdgeInsets.symmetric(horizontal: 30, vertical: 15),
-                    textStyle: TextStyle(fontSize: 20),
+                    textStyle: TextStyle(fontSize: 20,color: Colors.black),
                   ),
                   child: Text('View Tips'),
                 ),
