@@ -405,7 +405,7 @@ class _PracticeGenerator extends State<PracticeGenerator> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text("Practice Generator")),
+      appBar: AppBar(backgroundColor: Color.fromARGB(255, 92, 190, 74),title: Text("Practice Generator")),
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
@@ -456,7 +456,7 @@ class _PracticeGenerator extends State<PracticeGenerator> {
   }
 }
 
-//TipsScreen Code
+//CourtCamScreen Code
 class CourtCamScreen extends StatelessWidget {
   const CourtCamScreen({super.key});
 
@@ -464,7 +464,7 @@ class CourtCamScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
         //top bar
-        appBar: AppBar(title: Text("Practice Generator")),
+        appBar: AppBar(backgroundColor: Color.fromARGB(255, 92, 190, 74),title: Text("Practice Generator")),
         //main content
         body:Container(
           alignment: Alignment.topCenter,
